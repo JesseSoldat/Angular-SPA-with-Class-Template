@@ -21,7 +21,12 @@ var frameDir = function frameDir() {
 	return {
 		transclude: true,
 		controller: 'FrameController',
-		scope: {},
+		scope: {
+			title: '@',
+			subtitle: '@',
+			iconFile: '@'
+
+		},
 		templateUrl: './templates/frame.tpl.html'
 
 	};
@@ -41,6 +46,8 @@ var _angular = require('angular');
 
 var _angular2 = _interopRequireDefault(_angular);
 
+require('../menu/index');
+
 var _controllersFrameCtrl = require('./controllers/frameCtrl');
 
 var _controllersFrameCtrl2 = _interopRequireDefault(_controllersFrameCtrl);
@@ -49,9 +56,9 @@ var _directivesFrameDir = require('./directives/frameDir');
 
 var _directivesFrameDir2 = _interopRequireDefault(_directivesFrameDir);
 
-_angular2['default'].module('framework', []).controller('FrameController', _controllersFrameCtrl2['default']).directive('frameDir', _directivesFrameDir2['default']);
+_angular2['default'].module('framework', ['menu']).controller('FrameController', _controllersFrameCtrl2['default']).directive('frameDir', _directivesFrameDir2['default']);
 
-},{"./controllers/frameCtrl":1,"./directives/frameDir":2,"angular":6}],4:[function(require,module,exports){
+},{"../menu/index":7,"./controllers/frameCtrl":1,"./directives/frameDir":2,"angular":9}],4:[function(require,module,exports){
 'use strict';
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
@@ -64,13 +71,66 @@ var _jquery = require('jquery');
 
 var _jquery2 = _interopRequireDefault(_jquery);
 
-require('./Framework/frameModule');
+require('./Framework/index');
 
 console.log('Hello, World');
 
 _angular2['default'].module('app', ['framework']);
 
-},{"./Framework/frameModule":3,"angular":6,"jquery":7}],5:[function(require,module,exports){
+},{"./Framework/index":3,"angular":9,"jquery":10}],5:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var MenuController = function MenuController() {};
+
+MenuController.$inject = [];
+
+exports["default"] = MenuController;
+module.exports = exports["default"];
+
+},{}],6:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+var menuDir = function menuDir() {
+	return {
+		transclude: true,
+		controller: "MenuController",
+		scope: {},
+		templateUrl: "./templates/menu.tpl.html"
+
+	};
+};
+
+menuDir.$inject = [];
+
+exports["default"] = menuDir;
+module.exports = exports["default"];
+
+},{}],7:[function(require,module,exports){
+'use strict';
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+var _angular = require('angular');
+
+var _angular2 = _interopRequireDefault(_angular);
+
+var _controllersMenuCtrlJs = require('./controllers/menuCtrl.js');
+
+var _controllersMenuCtrlJs2 = _interopRequireDefault(_controllersMenuCtrlJs);
+
+var _directivesMenuDirJs = require('./directives/menuDir.js');
+
+var _directivesMenuDirJs2 = _interopRequireDefault(_directivesMenuDirJs);
+
+_angular2['default'].module('menu', []).controller('MenuController', _controllersMenuCtrlJs2['default']).directive('menuDir', _directivesMenuDirJs2['default']);
+
+},{"./controllers/menuCtrl.js":5,"./directives/menuDir.js":6,"angular":9}],8:[function(require,module,exports){
 /**
  * @license AngularJS v1.5.7
  * (c) 2010-2016 Google, Inc. http://angularjs.org
@@ -31544,11 +31604,11 @@ $provide.value("$locale", {
 })(window);
 
 !window.angular.$$csp().noInlineStyle && window.angular.element(document.head).prepend('<style type="text/css">@charset "UTF-8";[ng\\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>');
-},{}],6:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 require('./angular');
 module.exports = angular;
 
-},{"./angular":5}],7:[function(require,module,exports){
+},{"./angular":8}],10:[function(require,module,exports){
 /*!
  * jQuery JavaScript Library v2.2.4
  * http://jquery.com/

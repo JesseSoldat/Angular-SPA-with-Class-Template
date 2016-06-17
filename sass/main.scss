@@ -2,6 +2,11 @@
 
 body {
   background: #e2ebf3;
+  font-family: "Open Sans", sans-serif;
+
+}
+.container-fluid {
+	padding: 0;
 }
 
 /*framework template*/
@@ -33,7 +38,7 @@ body {
 
 	.logo-subtitle {
 		font-size: 13px;
-		margin-top: -13px;
+		margin-top: -5px;
 	}
 
 	@media screen and (max-width: 430px) {

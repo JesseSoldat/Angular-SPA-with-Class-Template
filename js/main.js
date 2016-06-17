@@ -1,7 +1,7 @@
 import angular from 'angular'
 import $ from 'jquery';
 
-import './Framework/frameModule';
+import './Framework/index';
 
 console.log('Hello, World');
 

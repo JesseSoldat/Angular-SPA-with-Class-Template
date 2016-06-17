@@ -3,6 +3,9 @@ let frameDir = function() {
 		transclude: true,
 		controller: 'FrameController',
 		scope: {
+			title: '@',
+			subtitle: '@',
+			iconFile: '@'
 
 		},
 		templateUrl: './templates/frame.tpl.html'
