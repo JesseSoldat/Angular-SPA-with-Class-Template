@@ -4,13 +4,29 @@
 Object.defineProperty(exports, '__esModule', {
 	value: true
 });
-var FrameController = function FrameController($scope) {
+var FrameController = function FrameController($scope, $window) {
+
+	$scope.isMenuVisible = true;
+	$scope.isMenuButtonVisible = true;
+
 	$scope.$on('menu-item-selected-event', function (evt, data) {
+		console.log(data.route);
 		$scope.routeString = data.route;
 	});
+
+	$($window).on('resize.framework', function () {
+		$scope.$apply(function () {
+			checkWidth();
+		});
+	});
+	var checkWidth = function checkWidth() {
+		var width = Math.max($($window).width(), $window.innerWidth);
+		$scope.isMenuVisible = width > 768;
+		$scope.isMenuButtonVisible = !$scope.isMenuVisible;
+	};
 };
 
-FrameController.$inject = ['$scope'];
+FrameController.$inject = ['$scope', '$window'];
 
 exports['default'] = FrameController;
 module.exports = exports['default'];
@@ -50,6 +66,10 @@ var _angular = require('angular');
 
 var _angular2 = _interopRequireDefault(_angular);
 
+var _jquery = require('jquery');
+
+var _jquery2 = _interopRequireDefault(_jquery);
+
 require('../menu/index');
 
 var _controllersFrameCtrl = require('./controllers/frameCtrl');
@@ -62,7 +82,7 @@ var _directivesFrameDir2 = _interopRequireDefault(_directivesFrameDir);
 
 _angular2['default'].module('framework', ['menu']).controller('FrameController', _controllersFrameCtrl2['default']).directive('frameDir', _directivesFrameDir2['default']);
 
-},{"../menu/index":8,"./controllers/frameCtrl":1,"./directives/frameDir":2,"angular":10}],4:[function(require,module,exports){
+},{"../menu/index":8,"./controllers/frameCtrl":1,"./directives/frameDir":2,"angular":10,"jquery":11}],4:[function(require,module,exports){
 'use strict';
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
