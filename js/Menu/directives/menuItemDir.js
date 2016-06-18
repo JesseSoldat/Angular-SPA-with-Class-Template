@@ -1,13 +1,25 @@
 let menuItemDir = function () {
 	return {
-		// controller: '^menu',
+		require: '^menuDir',
 		scope: {
 			label: '@',
 			icon: '@',
 			route: '@'
 
 		},
-		templateUrl: './templates/menuItem.tpl.html'
+		templateUrl: './templates/menuItem.tpl.html',
+		link: function (scope, el, attr, ctrl) {
+			el.on('click', function (evt) {
+				evt.stopPropagation();
+				evt.preventDefault();
+				scope.$apply(function () {
+					ctrl.setActiveElement(el);
+					ctrl.setRoute(scope.route);
+				});
+
+			});
+
+		}
 
 	}
 };

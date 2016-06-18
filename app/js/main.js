@@ -1,15 +1,19 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-"use strict";
+'use strict';
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
+Object.defineProperty(exports, '__esModule', {
+	value: true
 });
-var FrameController = function FrameController() {};
+var FrameController = function FrameController($scope) {
+	$scope.$on('menu-item-selected-event', function (evt, data) {
+		$scope.routeString = data.route;
+	});
+};
 
-FrameController.$inject = [];
+FrameController.$inject = ['$scope'];
 
-exports["default"] = FrameController;
-module.exports = exports["default"];
+exports['default'] = FrameController;
+module.exports = exports['default'];
 
 },{}],2:[function(require,module,exports){
 'use strict';
@@ -78,17 +82,26 @@ console.log('Hello, World');
 _angular2['default'].module('app', ['framework']);
 
 },{"./Framework/index":3,"angular":10,"jquery":11}],5:[function(require,module,exports){
-"use strict";
+'use strict';
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
+Object.defineProperty(exports, '__esModule', {
+	value: true
 });
-var MenuController = function MenuController() {};
+var MenuController = function MenuController($scope, $rootScope) {
 
-MenuController.$inject = [];
+	this.setActiveElement = function (el) {
+		$scope.activeElement = el;
+	};
+	this.setRoute = function (route) {
+		// console.log(route);
+		$rootScope.$broadcast('menu-item-selected-event', { route: route });
+	};
+};
 
-exports["default"] = MenuController;
-module.exports = exports["default"];
+MenuController.$inject = ['$scope', '$rootScope'];
+
+exports['default'] = MenuController;
+module.exports = exports['default'];
 
 },{}],6:[function(require,module,exports){
 "use strict";
@@ -119,14 +132,24 @@ Object.defineProperty(exports, '__esModule', {
 });
 var menuItemDir = function menuItemDir() {
 	return {
-		// controller: '^menu',
+		require: '^menuDir',
 		scope: {
 			label: '@',
 			icon: '@',
 			route: '@'
 
 		},
-		templateUrl: './templates/menuItem.tpl.html'
+		templateUrl: './templates/menuItem.tpl.html',
+		link: function link(scope, el, attr, ctrl) {
+			el.on('click', function (evt) {
+				evt.stopPropagation();
+				evt.preventDefault();
+				scope.$apply(function () {
+					ctrl.setActiveElement(el);
+					ctrl.setRoute(scope.route);
+				});
+			});
+		}
 
 	};
 };
