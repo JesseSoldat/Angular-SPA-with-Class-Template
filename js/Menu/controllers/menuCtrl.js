@@ -1,7 +1,9 @@
 let MenuController = function ($scope, $rootScope) {
 
 	$scope.showMenu = true;
-
+	this.getActiveElement = function() {
+		return $scope.activeElement;
+	};
 	this.setActiveElement = function(el) {
 		$scope.activeElement = el;
 	};

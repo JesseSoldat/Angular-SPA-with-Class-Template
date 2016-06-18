@@ -2269,10 +2269,19 @@ body {
   .menu-area .menu li {
     line-height: 3em;
     cursor: pointer; }
+  .menu-area .menu li div {
+    display: inline-block;
+    width: 90%;
+    padding-left: 16px; }
   .menu-area .selectable-item:hover {
     background-color: #555; }
   .menu-area .menu-icon {
     margin-right: 10px; }
+  .menu-area .menu-active-indicator {
+    float: right;
+    color: #ddd;
+    margin-top: 8px;
+    margin-right: 0px; }
   .menu-area .noselect {
     -webkit-touch-callout: none;
     -webkit-user-select: none;

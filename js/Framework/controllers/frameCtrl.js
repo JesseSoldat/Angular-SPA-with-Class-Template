@@ -1,17 +1,19 @@
-let FrameController = function($scope, $window, $rootScope) {
+let FrameController = function($scope, $window, $rootScope, $timeout) {
 
 	$scope.isMenuVisible = true;
 	$scope.isMenuButtonVisible = true;
 
 
 	$scope.$on('menu-item-selected-event', function (evt, data) {
-		console.log(data.route);
 		$scope.routeString = data.route;
+		checkWidth();
+		broadcastMenuState();
 	})
 
 	$($window).on('resize.framework', function() {
 		$scope.$apply(function () {
 			checkWidth();
+			broadcastMenuState();
 		})
 	})
 	$scope.$on('$destroy', function () {
@@ -32,8 +34,12 @@ let FrameController = function($scope, $window, $rootScope) {
 		{	show: $scope.isMenuVisible }
 		);
 	};
+	$timeout(function () {
+		checkWidth();
+	},0);
+
 };
 
-FrameController.$inject = ['$scope', '$window', '$rootScope'];
+FrameController.$inject = ['$scope', '$window', '$rootScope','$timeout'];
 
 export default FrameController;

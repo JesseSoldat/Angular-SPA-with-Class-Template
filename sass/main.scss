@@ -111,11 +111,22 @@ body {
 		line-height: 3em;
 		cursor: pointer;
 	}
+	.menu li div {
+		display: inline-block;
+		width: 90%;
+		padding-left: 16px;
+	}
 	.selectable-item:hover {
 		background-color: #555;
 	}
 	.menu-icon {
 		margin-right: 10px;
+	}
+	.menu-active-indicator {
+		float: right;
+		color: #ddd;
+		margin-top: 8px;
+		margin-right: 0px;
 	}
 	/*can not select the text in the menu*/
 	.noselect {
