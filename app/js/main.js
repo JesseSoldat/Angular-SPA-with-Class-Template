@@ -4,7 +4,7 @@
 Object.defineProperty(exports, '__esModule', {
 	value: true
 });
-var FrameController = function FrameController($scope, $window) {
+var FrameController = function FrameController($scope, $window, $rootScope) {
 
 	$scope.isMenuVisible = true;
 	$scope.isMenuButtonVisible = true;
@@ -19,14 +19,25 @@ var FrameController = function FrameController($scope, $window) {
 			checkWidth();
 		});
 	});
+	$scope.$on('$destroy', function () {
+		$($window).off('resize.framework');
+	});
 	var checkWidth = function checkWidth() {
 		var width = Math.max($($window).width(), $window.innerWidth);
 		$scope.isMenuVisible = width > 768;
 		$scope.isMenuButtonVisible = !$scope.isMenuVisible;
 	};
+	$scope.menuButtonClicked = function () {
+		$scope.isMenuVisible = !$scope.isMenuVisible;
+		broadcastMenuState();
+		// $scope.$apply();
+	};
+	var broadcastMenuState = function broadcastMenuState() {
+		$rootScope.$broadcast('menu-show', { show: $scope.isMenuVisible });
+	};
 };
 
-FrameController.$inject = ['$scope', '$window'];
+FrameController.$inject = ['$scope', '$window', '$rootScope'];
 
 exports['default'] = FrameController;
 module.exports = exports['default'];
@@ -109,6 +120,8 @@ Object.defineProperty(exports, '__esModule', {
 });
 var MenuController = function MenuController($scope, $rootScope) {
 
+	$scope.showMenu = true;
+
 	this.setActiveElement = function (el) {
 		$scope.activeElement = el;
 	};
@@ -116,6 +129,10 @@ var MenuController = function MenuController($scope, $rootScope) {
 		// console.log(route);
 		$rootScope.$broadcast('menu-item-selected-event', { route: route });
 	};
+
+	$scope.$on('menu-show', function (evt, data) {
+		$scope.showMenu = data.show;
+	});
 };
 
 MenuController.$inject = ['$scope', '$rootScope'];

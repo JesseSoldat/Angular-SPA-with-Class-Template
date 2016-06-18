@@ -1,4 +1,4 @@
-let FrameController = function($scope, $window) {
+let FrameController = function($scope, $window, $rootScope) {
 
 	$scope.isMenuVisible = true;
 	$scope.isMenuButtonVisible = true;
@@ -14,17 +14,26 @@ let FrameController = function($scope, $window) {
 			checkWidth();
 		})
 	})
-	var checkWidth = function () {
+	$scope.$on('$destroy', function () {
+		$($window).off('resize.framework');
+	});
+	let checkWidth = function () {
 		var width = Math.max($($window).width(), $window.innerWidth);
 		$scope.isMenuVisible = (width > 768);
-		$scope.isMenuButtonVisible = !$scope.isMenuVisible;
-
-
-		
-		
-	}
+		$scope.isMenuButtonVisible = !$scope.isMenuVisible;	
+	};
+	$scope.menuButtonClicked = function () {
+		$scope.isMenuVisible = !$scope.isMenuVisible;
+		broadcastMenuState();
+		// $scope.$apply();
+	};
+	let broadcastMenuState = function () {
+		$rootScope.$broadcast('menu-show', 
+		{	show: $scope.isMenuVisible }
+		);
+	};
 };
 
-FrameController.$inject = ['$scope', '$window'];
+FrameController.$inject = ['$scope', '$window', '$rootScope'];
 
 export default FrameController;

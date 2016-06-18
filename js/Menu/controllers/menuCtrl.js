@@ -1,5 +1,7 @@
 let MenuController = function ($scope, $rootScope) {
 
+	$scope.showMenu = true;
+
 	this.setActiveElement = function(el) {
 		$scope.activeElement = el;
 	};
@@ -7,6 +9,10 @@ let MenuController = function ($scope, $rootScope) {
 		// console.log(route);
 		$rootScope.$broadcast('menu-item-selected-event', {route: route})
 	}; 
+
+	$scope.$on('menu-show', function (evt, data) {
+		$scope.showMenu = data.show;
+	})
 };
 
 MenuController.$inject = ['$scope', '$rootScope'];
