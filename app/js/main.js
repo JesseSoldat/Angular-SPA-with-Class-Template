@@ -8,11 +8,17 @@ var FrameController = function FrameController($scope, $window, $rootScope, $tim
 
 	$scope.isMenuVisible = true;
 	$scope.isMenuButtonVisible = true;
+	$scope.isMenuVertical = true;
 
 	$scope.$on('menu-item-selected-event', function (evt, data) {
 		$scope.routeString = data.route;
 		checkWidth();
 		broadcastMenuState();
+	});
+
+	$scope.$on('menu-orientation-changed-event', function (evt, data) {
+		$scope.isMenuVertical = data.isMenuVertical;
+		console.log($scope.isMenuVertical);
 	});
 
 	$($window).on('resize.framework', function () {
@@ -21,6 +27,7 @@ var FrameController = function FrameController($scope, $window, $rootScope, $tim
 			broadcastMenuState();
 		});
 	});
+
 	$scope.$on('$destroy', function () {
 		$($window).off('resize.framework');
 	});
@@ -29,14 +36,17 @@ var FrameController = function FrameController($scope, $window, $rootScope, $tim
 		$scope.isMenuVisible = width > 768;
 		$scope.isMenuButtonVisible = !$scope.isMenuVisible;
 	};
+
 	$scope.menuButtonClicked = function () {
 		$scope.isMenuVisible = !$scope.isMenuVisible;
 		broadcastMenuState();
 		// $scope.$apply();
 	};
+
 	var broadcastMenuState = function broadcastMenuState() {
 		$rootScope.$broadcast('menu-show', { show: $scope.isMenuVisible });
 	};
+
 	$timeout(function () {
 		checkWidth();
 	}, 0);
@@ -126,15 +136,25 @@ Object.defineProperty(exports, '__esModule', {
 var MenuController = function MenuController($scope, $rootScope) {
 
 	$scope.showMenu = true;
+	$scope.isVertical = true;
+
 	this.getActiveElement = function () {
 		return $scope.activeElement;
 	};
 	this.setActiveElement = function (el) {
 		$scope.activeElement = el;
 	};
+	this.isVertical = function () {
+		return $scope.isVertical;
+	};
 	this.setRoute = function (route) {
 		// console.log(route);
 		$rootScope.$broadcast('menu-item-selected-event', { route: route });
+	};
+	$scope.toggleMenuOrientation = function () {
+		$scope.isVertical = !$scope.isVertical;
+
+		$rootScope.$broadcast('menu-orientation-changed-event', { isMenuVertical: $scope.isVertical });
 	};
 
 	$scope.$on('menu-show', function (evt, data) {
@@ -190,6 +210,17 @@ var menuGroupDir = function menuGroupDir() {
 			};
 			scope.clicked = function () {
 				scope.isOpen = !scope.isOpen;
+
+				if (el.parents('subitem-section').length == 0) {
+					scope.setSubmenuPosition();
+				}
+			};
+			scope.isVertical = function () {
+				return ctrl.isVertical() || el.parents('subitem-section').length > 0;
+			};
+			scope.setSubmenuPosition = function () {
+				var pos = el.offset();
+				$('.subitem-section').css({ 'left': pos.left + 20, 'top': 36 });
 			};
 		}
 
@@ -221,6 +252,10 @@ var menuItemDir = function menuItemDir() {
 			scope.isActive = function () {
 				return el === ctrl.getActiveElement();
 			};
+			scope.isVertical = function () {
+				return ctrl.isVertical() || el.parents('.subitem-section').length > 0;
+			};
+
 			el.on('click', function (evt) {
 				evt.stopPropagation();
 				evt.preventDefault();

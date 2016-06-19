@@ -88,10 +88,7 @@ body {
 	color: #ccc;
 	padding: 0;
 	margin: 0;
-	width: 200px;
-	min-height: 100vh;
-	padding-top: 30px;
-
+	
 	.menu-area ul {
 		padding-left: 0;
 	}
@@ -101,6 +98,7 @@ body {
 	.menu {
 		list-style-type: none;
 		vertical-align: top;
+		padding-left: 0;
 	}
 	.menu ul {
 		display: inline;
@@ -135,7 +133,51 @@ body {
 		-moz-user-select: none;
 		-ms-user-select: none;
 		user-select: none;
-}
+	}
+	.group-indicator-left {
+		float: right;
+		color: #ddd;
+		margin-right: 2px;
+		margin-top: 15px;
+	}
+	.subitem-section {
+		padding-left: 16px;
+	}
+	.menu-layout-btn {
+		margin: 12px;
+		padding: 2px 8px;
+		color: #bbb;
+		background-color: #333;
+		border: 1px solid #999;
+	}
+	.layout-button-horizontal {
+		position: absolute;
+		top: -6px;
+		right: 10px;
+	}
+	.item-horizontal {
+		display: inline-block;
+		width: 165px !important;
+		margin-left:20px;
+		margin-top: 5px;
+		line-height: 1.5em !important;
+	}
+	.popup-menu {
+		position: absolute;
+		z-index: 1000;
+		background-color: #333;
+		width: 200px;
+		padding-left: 0;
+	}
 
+}
+.menu-area-vertical {
+		width: 200px;
+		min-height: 100vh;
+		padding-top: 30px
+}
+.menu-area-horizontal {
+		width: 100%;
+		height: 40px;
 }
 /* END menu template*/

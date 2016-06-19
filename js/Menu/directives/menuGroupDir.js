@@ -14,7 +14,20 @@ let menuGroupDir = function () {
 			};
 			scope.clicked = function () {
 				scope.isOpen = !scope.isOpen;
+
+				if (el.parents('subitem-section').length == 0) {
+					scope.setSubmenuPosition();
+				}
 			};
+			scope.isVertical = function () {
+				return ctrl.isVertical() || el.parents('subitem-section').length > 0;
+			}
+			scope.setSubmenuPosition = function () {
+				var pos = el.offset();
+				$('.subitem-section').css(
+		
+					{'left' : pos.left + 20, 'top':36});
+			}
 		}
 
 	};
