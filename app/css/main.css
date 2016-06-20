@@ -2315,6 +2315,10 @@ body {
     background-color: #333;
     width: 200px;
     padding-left: 0; }
+  .menu-area .fade-in-animation {
+    transition: linear all 0.5s; }
+  .menu-area .fade-in-animation.ng-hide {
+    opacity: 0; }
 
 .menu-area-vertical {
   width: 200px;

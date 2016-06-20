@@ -169,7 +169,12 @@ body {
 		width: 200px;
 		padding-left: 0;
 	}
-
+	.fade-in-animation	{
+		transition: linear all 0.5s;
+	}
+	.fade-in-animation.ng-hide {
+		opacity: 0;
+	}
 }
 .menu-area-vertical {
 		width: 200px;

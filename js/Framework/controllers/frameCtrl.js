@@ -13,7 +13,7 @@ let FrameController = function($scope, $window, $rootScope, $timeout) {
 
 	$scope.$on('menu-orientation-changed-event', function (evt, data) {
 		$scope.isMenuVertical = data.isMenuVertical;
-		console.log($scope.isMenuVertical);
+		// console.log($scope.isMenuVertical);
 	});
 
 	$($window).on('resize.framework', function() {
@@ -40,7 +40,11 @@ let FrameController = function($scope, $window, $rootScope, $timeout) {
 
 	let broadcastMenuState = function () {
 		$rootScope.$broadcast('menu-show', 
-		{	show: $scope.isMenuVisible }
+		{	show: $scope.isMenuVisible, 
+			isVertical: $scope.isMenuVertical,
+			allowHorizontalToggle: !$scope.isMenuButtonVisible
+
+		}
 		);
 	};
 

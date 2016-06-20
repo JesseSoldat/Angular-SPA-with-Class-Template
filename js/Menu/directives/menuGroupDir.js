@@ -18,6 +18,7 @@ let menuGroupDir = function () {
 				if (el.parents('subitem-section').length == 0) {
 					scope.setSubmenuPosition();
 				}
+				ctrl.setOpenMenuScope(scope);
 			};
 			scope.isVertical = function () {
 				return ctrl.isVertical() || el.parents('subitem-section').length > 0;
