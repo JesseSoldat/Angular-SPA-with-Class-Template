@@ -77,16 +77,8 @@ body {
 		font-size: 26px;
 		color: #777;
 	}
-	.view {
-		margin-left: 200px;
-		padding: 20px;
-		background-color: #ccc;
-		min-height: 100vh;
-		overflow: auto;
-	}
-	.view-full-width {
-		margin-left: 0;
-	}
+
+	
 }
 /* END framework template*/
 
@@ -186,7 +178,18 @@ body {
 		opacity: 0;
 	}
 }
+	.view {
+		margin-left: 200px;
+		padding: 20px;
+		background-color: #ccc;
+		min-height: 100vh;
+		overflow: auto;
+	}
+	.view-full-width {
+		margin-left: 0;
+	}
 .menu-area-vertical {
+		float: left;
 		width: 200px;
 		min-height: 100vh;
 		padding-top: 30px

@@ -3,19 +3,42 @@ let config = function($routeProvider) {
 		{
 			url: '/dashboard',
 			config: {
-				templateUrl: '../templates/test.html'
+				templateUrl: '../templates/dashboard.tpl.html'
 			}
 		},
 		{
 			url: '/locations',
 			config: {
-				template: '<h1>Locations</h1>'
+				templateUrl: '../templates/location.tpl.html'
+				
 			}
 		},
 		{
-			url: '/guides',
+			url: '/guide',
 			config: {
-				template: '<h1>Guides</h1>'
+				templateUrl: '../templates/guide.tpl.html'
+				
+			}
+		},
+		{
+			url: '/angular',
+			config: {
+				templateUrl: '../templates/angular.tpl.html'
+				
+			}
+		},
+		{
+			url: '/react',
+			config: {
+				templateUrl: '../templates/react.tpl.html'
+				
+			}
+		},
+		{
+			url: '/node',
+			config: {
+				templateUrl: '../templates/node.tpl.html'
+				
 			}
 		}
 

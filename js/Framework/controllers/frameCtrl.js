@@ -1,4 +1,4 @@
-let FrameController = function($scope, $window, $rootScope, $timeout) {
+let FrameController = function($scope, $window, $rootScope, $timeout, $location) {
 
 	$scope.isMenuVisible = true;
 	$scope.isMenuButtonVisible = true;
@@ -7,6 +7,7 @@ let FrameController = function($scope, $window, $rootScope, $timeout) {
 
 	$scope.$on('menu-item-selected-event', function (evt, data) {
 		$scope.routeString = data.route;
+		$location.path(data.route);
 		checkWidth();
 		broadcastMenuState();
 	});
@@ -54,6 +55,6 @@ let FrameController = function($scope, $window, $rootScope, $timeout) {
 
 };
 
-FrameController.$inject = ['$scope', '$window', '$rootScope','$timeout'];
+FrameController.$inject = ['$scope', '$window', '$rootScope','$timeout', '$location'];
 
 export default FrameController;

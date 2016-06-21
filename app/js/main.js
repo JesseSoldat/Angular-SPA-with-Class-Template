@@ -4,7 +4,7 @@
 Object.defineProperty(exports, '__esModule', {
 	value: true
 });
-var FrameController = function FrameController($scope, $window, $rootScope, $timeout) {
+var FrameController = function FrameController($scope, $window, $rootScope, $timeout, $location) {
 
 	$scope.isMenuVisible = true;
 	$scope.isMenuButtonVisible = true;
@@ -12,6 +12,7 @@ var FrameController = function FrameController($scope, $window, $rootScope, $tim
 
 	$scope.$on('menu-item-selected-event', function (evt, data) {
 		$scope.routeString = data.route;
+		$location.path(data.route);
 		checkWidth();
 		broadcastMenuState();
 	});
@@ -56,7 +57,7 @@ var FrameController = function FrameController($scope, $window, $rootScope, $tim
 	}, 0);
 };
 
-FrameController.$inject = ['$scope', '$window', '$rootScope', '$timeout'];
+FrameController.$inject = ['$scope', '$window', '$rootScope', '$timeout', '$location'];
 
 exports['default'] = FrameController;
 module.exports = exports['default'];
@@ -112,7 +113,7 @@ var _directivesFrameDir2 = _interopRequireDefault(_directivesFrameDir);
 
 _angular2['default'].module('framework', ['menu']).controller('FrameController', _controllersFrameCtrl2['default']).directive('frameDir', _directivesFrameDir2['default']);
 
-},{"../menu/index":10,"./controllers/frameCtrl":1,"./directives/frameDir":2,"angular":16,"jquery":17}],4:[function(require,module,exports){
+},{"../menu/index":11,"./controllers/frameCtrl":1,"./directives/frameDir":2,"angular":17,"jquery":18}],4:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -122,17 +123,37 @@ var config = function config($routeProvider) {
 	var routes = [{
 		url: '/dashboard',
 		config: {
-			templateUrl: '../templates/test.html'
+			templateUrl: '../templates/dashboard.tpl.html'
 		}
 	}, {
 		url: '/locations',
 		config: {
-			template: '<h1>Locations</h1>'
+			templateUrl: '../templates/location.tpl.html'
+
 		}
 	}, {
-		url: '/guides',
+		url: '/guide',
 		config: {
-			template: '<h1>Guides</h1>'
+			templateUrl: '../templates/guide.tpl.html'
+
+		}
+	}, {
+		url: '/angular',
+		config: {
+			templateUrl: '../templates/angular.tpl.html'
+
+		}
+	}, {
+		url: '/react',
+		config: {
+			templateUrl: '../templates/react.tpl.html'
+
+		}
+	}, {
+		url: '/node',
+		config: {
+			templateUrl: '../templates/node.tpl.html'
+
 		}
 	}];
 
@@ -149,6 +170,27 @@ exports['default'] = config;
 module.exports = exports['default'];
 
 },{}],5:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+	value: true
+});
+var dashDir = function dashDir() {
+	return {
+		transclude: true,
+
+		scope: {},
+		template: '<h1>Dashboard</h1>'
+
+	};
+};
+
+dashDir.$inject = [];
+
+exports['default'] = dashDir;
+module.exports = exports['default'];
+
+},{}],6:[function(require,module,exports){
 'use strict';
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
@@ -169,13 +211,17 @@ var _appRouteConfig = require('./appRouteConfig');
 
 var _appRouteConfig2 = _interopRequireDefault(_appRouteConfig);
 
+var _directivesDashDirJs = require('./directives/dashDir.js');
+
+var _directivesDashDirJs2 = _interopRequireDefault(_directivesDashDirJs);
+
 require('./Framework/index');
 
 // console.log('Hello, World');
 
-_angular2['default'].module('app', ['ngRoute', 'framework']).config(_appRouteConfig2['default']);
+_angular2['default'].module('app', ['ngRoute', 'framework']).config(_appRouteConfig2['default']).directive('dashDir', _directivesDashDirJs2['default']);
 
-},{"./Framework/index":3,"./appRouteConfig":4,"angular":16,"angular-route":14,"jquery":17}],6:[function(require,module,exports){
+},{"./Framework/index":3,"./appRouteConfig":4,"./directives/dashDir.js":5,"angular":17,"angular-route":15,"jquery":18}],7:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -234,7 +280,7 @@ MenuController.$inject = ['$scope', '$rootScope'];
 exports['default'] = MenuController;
 module.exports = exports['default'];
 
-},{}],7:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -262,7 +308,7 @@ menuDir.$inject = ['$timeout'];
 exports["default"] = menuDir;
 module.exports = exports["default"];
 
-},{}],8:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -307,7 +353,7 @@ menuGroupDir.$inject = [];
 exports['default'] = menuGroupDir;
 module.exports = exports['default'];
 
-},{}],9:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -349,7 +395,7 @@ menuItemDir.$inject = [];
 exports['default'] = menuItemDir;
 module.exports = exports['default'];
 
-},{}],10:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 'use strict';
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
@@ -380,7 +426,7 @@ var _directivesMenuGroupDirJs2 = _interopRequireDefault(_directivesMenuGroupDirJ
 
 _angular2['default'].module('menu', ['ngAnimate']).controller('MenuController', _controllersMenuCtrlJs2['default']).directive('menuDir', _directivesMenuDirJs2['default']).directive('menuItemDir', _directivesMenuItemDirJs2['default']).directive('menuGroupDir', _directivesMenuGroupDirJs2['default']);
 
-},{"./controllers/menuCtrl.js":6,"./directives/menuDir.js":7,"./directives/menuGroupDir.js":8,"./directives/menuItemDir.js":9,"angular":16,"angular-animate":12}],11:[function(require,module,exports){
+},{"./controllers/menuCtrl.js":7,"./directives/menuDir.js":8,"./directives/menuGroupDir.js":9,"./directives/menuItemDir.js":10,"angular":17,"angular-animate":13}],12:[function(require,module,exports){
 /**
  * @license AngularJS v1.5.7
  * (c) 2010-2016 Google, Inc. http://angularjs.org
@@ -4528,11 +4574,11 @@ angular.module('ngAnimate', [])
 
 })(window, window.angular);
 
-},{}],12:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 require('./angular-animate');
 module.exports = 'ngAnimate';
 
-},{"./angular-animate":11}],13:[function(require,module,exports){
+},{"./angular-animate":12}],14:[function(require,module,exports){
 /**
  * @license AngularJS v1.5.7
  * (c) 2010-2016 Google, Inc. http://angularjs.org
@@ -5599,11 +5645,11 @@ function ngViewFillContentFactory($compile, $controller, $route) {
 
 })(window, window.angular);
 
-},{}],14:[function(require,module,exports){
+},{}],15:[function(require,module,exports){
 require('./angular-route');
 module.exports = 'ngRoute';
 
-},{"./angular-route":13}],15:[function(require,module,exports){
+},{"./angular-route":14}],16:[function(require,module,exports){
 /**
  * @license AngularJS v1.5.7
  * (c) 2010-2016 Google, Inc. http://angularjs.org
@@ -37077,11 +37123,11 @@ $provide.value("$locale", {
 })(window);
 
 !window.angular.$$csp().noInlineStyle && window.angular.element(document.head).prepend('<style type="text/css">@charset "UTF-8";[ng\\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>');
-},{}],16:[function(require,module,exports){
+},{}],17:[function(require,module,exports){
 require('./angular');
 module.exports = angular;
 
-},{"./angular":15}],17:[function(require,module,exports){
+},{"./angular":16}],18:[function(require,module,exports){
 /*!
  * jQuery JavaScript Library v2.2.4
  * http://jquery.com/
@@ -46897,7 +46943,7 @@ if ( !noGlobal ) {
 return jQuery;
 }));
 
-},{}]},{},[5])
+},{}]},{},[6])
 
 
 //# sourceMappingURL=main.js.map
